@@ -12,7 +12,13 @@ proxies = {
     }
 
 url = "https://check.torproject.org/"
+good = "Congratulations. This browser is configured to use Tor."
 
 r = requests.get(url, headers=headers, proxies=proxies, verify=False)
 print(r.headers)
 print(r.headers.get)
+
+if r.status_code == requests.codes.ok and good in r.text:
+    print("You have successfully connected through the Tor network.")
+else:
+    print("You are not connected through the Tor network.")
